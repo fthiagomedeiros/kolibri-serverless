@@ -1,16 +1,15 @@
 package com.serverless.routes.response;
 
+import com.serverless.routes.request.CreateRouteRequest;
 import lombok.Data;
 
 public @Data
 class Response {
 
-	private final String name;
-	private final String message;
+	private final CreateRouteRequest request;
 
-	public Response(String name, String message) {
-		this.name = name;
-		this.message = message;
+	public Response(CreateRouteRequest request) {
+		this.request = request;
 	}
 
 }

@@ -2,7 +2,7 @@ package com.serverless.routes;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
-import com.serverless.ApiGatewayResponse;
+import com.serverless.routes.response.ApiGatewayResponse;
 import com.serverless.routes.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

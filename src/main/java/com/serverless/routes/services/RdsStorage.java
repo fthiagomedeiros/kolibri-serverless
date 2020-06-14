@@ -1,6 +1,5 @@
 package com.serverless.routes.services;
 
-import com.serverless.routes.exceptions.AirlineNotFoundException;
 import com.serverless.routes.model.Route;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,12 +36,6 @@ public class RdsStorage implements DataStorage {
                 route.getOrigin(), route.getDestination(), route.getCargo(), route.getAirline());
         stmt.executeUpdate(insertRoute);
         return route;
-    }
-
-    @Override
-    public List<Route> getRoutes() throws SQLException {
-        ResultSet resultSet = stmt.executeQuery("SELECT * FROM routes");
-        return getRoutes(resultSet);
     }
 
     @Override

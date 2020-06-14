@@ -29,19 +29,11 @@ public class MemoryStorage implements DataStorage {
     }
 
     @Override
-    public List<Route> getRoutes() {
-        List<Route> routes = new ArrayList<>();
-        routes.add(new Route());
-        return routes;
-    }
-
-    @Override
     public List<Route> getRoutes(String airline) throws AirlineNotFoundException {
         if (routesFromAirline.containsKey(airline)) {
             return routesFromAirline.get(airline);
         }
         throw new AirlineNotFoundException(airline);
     }
-
 
 }

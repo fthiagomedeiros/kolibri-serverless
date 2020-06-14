@@ -30,11 +30,6 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public List<Route> getRoutes() throws SQLException {
-        return routeAccess.getRoutes();
-    }
-
-    @Override
     public List<Route> getRoutes(String airline) throws AirlineNotFoundException, SQLException {
         return routeAccess.getRoutesBy(airline);
     }

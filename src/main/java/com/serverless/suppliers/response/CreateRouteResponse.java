@@ -1,4 +1,4 @@
-package com.serverless.routes.response;
+package com.serverless.suppliers.response;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,5 +12,5 @@ class CreateRouteResponse {
     private String origin;
     private String destination;
     private int cargo;
-    private String airline;
+    private String owner;
 }

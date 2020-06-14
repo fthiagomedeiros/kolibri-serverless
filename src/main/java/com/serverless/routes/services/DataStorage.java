@@ -8,7 +8,6 @@ import java.util.List;
 
 public interface DataStorage {
     Route save(Route route) throws SQLException;
-    List<Route> getRoutes() throws SQLException;
     List<Route> getRoutes(String airline) throws AirlineNotFoundException, SQLException;
 
 }

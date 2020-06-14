@@ -7,7 +7,7 @@ import com.serverless.routes.business_logic.RouteService;
 import com.serverless.routes.business_logic.RouteServiceImpl;
 import com.serverless.routes.model.Route;
 import com.serverless.routes.request.CreateRouteRequest;
-import com.serverless.routes.response.ApiGatewayResponse;
+import utils.ApiGatewayResponse;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

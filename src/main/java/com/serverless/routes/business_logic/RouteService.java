@@ -9,6 +9,5 @@ import java.util.List;
 
 public interface RouteService {
     Route createRoute(CreateRouteRequest route) throws SQLException;
-    List<Route> getRoutes() throws SQLException;
     List<Route> getRoutes(String airline) throws SQLException, AirlineNotFoundException;
 }

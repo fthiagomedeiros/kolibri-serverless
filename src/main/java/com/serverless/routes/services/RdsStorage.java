@@ -2,11 +2,19 @@ package com.serverless.routes.services;
 
 import com.serverless.routes.exceptions.AirlineNotFoundException;
 import com.serverless.routes.model.Route;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.List;
 
 public class RdsStorage implements DataStorage {
+
+    private static final Logger LOG = LogManager.getLogger(RdsStorage.class);
 
     private Connection conn;
     private Statement stmt;
@@ -20,6 +28,7 @@ public class RdsStorage implements DataStorage {
             this.conn = DriverManager.getConnection(host, username, password);
             this.stmt = conn.createStatement();
         } catch (SQLException throwables) {
+            LOG.info("Route Created: {}", "throwables.printStackTrace()");
             throwables.printStackTrace();
         }
     }
@@ -29,13 +38,14 @@ public class RdsStorage implements DataStorage {
         String insertRoute = String.format("INSERT INTO routes VALUES ('%s', '%s', '%s', '%s', '%s', %d, '%s')",
                 route.getUuid(), route.getDate(), route.getTime(),
                 route.getOrigin(), route.getDestination(), route.getCargo(), route.getAirline());
-        int resultSet = stmt.executeUpdate(insertRoute);
+        stmt.executeUpdate(insertRoute);
         return route;
     }
 
     @Override
     public List<Route> getRoutes() {
-        return null;
+        LOG.info("Get Worked: {}", "getRoutes()");
+        return new ArrayList<>();
     }
 
     @Override

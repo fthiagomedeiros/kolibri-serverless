@@ -28,7 +28,7 @@ public class PostRoute implements RequestHandler<Map<String, Object>, ApiGateway
         String body = extractBody(_event);
         CreateRouteRequest request = mapper.readValue(body, CreateRouteRequest.class);
 
-        LOG.info("Route Created: {}", body);
+        LOG.info("Route handleRequest: {}", body);
 
         Route response = routeService.createRoute(request);
 

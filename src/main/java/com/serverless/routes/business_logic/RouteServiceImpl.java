@@ -5,6 +5,8 @@ import com.serverless.routes.data_layer.RouteAccess;
 import com.serverless.routes.data_layer.RouteAccessImpl;
 import com.serverless.routes.model.Route;
 import com.serverless.routes.request.CreateRouteRequest;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.UUID;
 
 public class RouteServiceImpl implements RouteService {
 
+    private static final Logger LOG = LogManager.getLogger(RouteServiceImpl.class);
     private final ObjectMapper mapper = new ObjectMapper();
     private final RouteAccess routeAccess = new RouteAccessImpl();
 
@@ -19,6 +22,8 @@ public class RouteServiceImpl implements RouteService {
     public Route createRoute(CreateRouteRequest route) throws SQLException {
         Route anNewRoute = mapper.convertValue(route, Route.class);
         anNewRoute.setUuid(UUID.randomUUID().toString());
+
+        LOG.info("Route Creation: {}", anNewRoute);
 
         return routeAccess.createRoute(anNewRoute);
     }

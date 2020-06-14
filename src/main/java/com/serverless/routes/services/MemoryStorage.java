@@ -30,6 +30,8 @@ public class MemoryStorage implements DataStorage {
 
     @Override
     public List<Route> getRoutes() {
+        List<Route> routes = new ArrayList<>();
+        routes.add(new Route());
         return routes;
     }
 

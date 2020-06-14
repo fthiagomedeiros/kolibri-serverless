@@ -9,7 +9,7 @@ import java.util.List;
 
 public class RouteAccessImpl implements RouteAccess {
 
-    private final DataStorage repository = new RdsStorage();
+    private static final DataStorage repository = new RdsStorage();
 
     @Override
     public Route createRoute(Route route) throws SQLException {

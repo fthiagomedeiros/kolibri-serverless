@@ -19,7 +19,11 @@ public class RouteAccessImpl implements RouteAccess {
 
     @Override
     public List<Route> getRoutesBy(String airline) throws AirlineNotFoundException, SQLException {
-        return repository.getRoutes(airline);
+        List<Route> routes = repository.getRoutes(airline);
+        if (routes.size() == 0) {
+            throw new AirlineNotFoundException(String.format("No Routes found for %s", airline));
+        }
+        return routes;
     }
 
 }

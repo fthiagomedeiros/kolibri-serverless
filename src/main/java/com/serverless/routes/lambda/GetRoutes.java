@@ -6,6 +6,7 @@ import com.serverless.routes.business_logic.RouteService;
 import com.serverless.routes.business_logic.RouteServiceImpl;
 import com.serverless.routes.exceptions.AirlineNotFoundException;
 import com.serverless.routes.model.Route;
+import com.serverless.routes.response.CreateRouteResponseError;
 import utils.ApiGatewayResponse;
 import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
@@ -25,7 +26,15 @@ public class GetRoutes implements RequestHandler<Map<String, Object>, ApiGateway
     @SneakyThrows
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> _event, Context context) {
-        String airline = extractAuthorizationUser(_event);
+        String airline;
+        try {
+            airline = extractAuthorizationUser(_event);
+        } catch (Exception ex) {
+            return ApiGatewayResponse.builder()
+                    .setStatusCode(400)
+                    .setObjectBody(new CreateRouteResponseError(400, "Unauthorized"))
+                    .build();
+        }
 
         try {
             List<Route> response = routeService.getRoutes(airline);
@@ -36,6 +45,7 @@ public class GetRoutes implements RequestHandler<Map<String, Object>, ApiGateway
         } catch (AirlineNotFoundException ex) {
             return ApiGatewayResponse.builder()
                     .setStatusCode(404)
+                    .setObjectBody(new CreateRouteResponseError(404, ex.getMessage()))
                     .build();
         }
 

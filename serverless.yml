@@ -63,6 +63,7 @@ functions:
       - http:
           path: routes
           method: post
+          cors: true
 
   GetRoutes:
     handler: com.serverless.routes.lambda.GetRoutes
@@ -71,6 +72,7 @@ functions:
       - http:
           path: routes
           method: get
+          cors: true
 
   PostProduct:
     handler: com.serverless.suppliers.lambda.PostProduct
@@ -79,6 +81,7 @@ functions:
       - http:
           path: product
           method: post
+          cors: true
 
 #    Define function environment variables here
 #    environment:

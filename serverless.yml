@@ -72,6 +72,14 @@ functions:
           path: routes
           method: get
 
+  PostProduct:
+    handler: com.serverless.suppliers.lambda.PostProduct
+    name: ${self:provider.stage}-PostProduct
+    events:
+      - http:
+          path: product
+          method: post
+
 #    Define function environment variables here
 #    environment:
 #      variable2: value2

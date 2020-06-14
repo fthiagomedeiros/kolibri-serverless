@@ -13,15 +13,15 @@ public class RdsStorage implements DataStorage {
 
     private static final Logger LOG = LogManager.getLogger(RdsStorage.class);
 
+    String host = System.getenv("HOST");
+    String username = System.getenv("USERNAME");
+    String password = System.getenv("PASSWORD");
+
     private static Connection conn;
     private static Statement stmt;
 
     public RdsStorage() {
         try {
-            String host = System.getenv("HOST");
-            String username = System.getenv("USERNAME");
-            String password = System.getenv("PASSWORD");
-
             conn = DriverManager.getConnection(host, username, password);
             stmt = conn.createStatement();
         } catch (SQLException throwables) {

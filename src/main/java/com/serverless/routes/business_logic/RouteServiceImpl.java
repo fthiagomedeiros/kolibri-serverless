@@ -3,6 +3,7 @@ package com.serverless.routes.business_logic;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serverless.routes.data_layer.RouteAccess;
 import com.serverless.routes.data_layer.RouteAccessImpl;
+import com.serverless.routes.exceptions.AirlineNotFoundException;
 import com.serverless.routes.model.Route;
 import com.serverless.routes.request.CreateRouteRequest;
 import org.apache.logging.log4j.LogManager;
@@ -31,6 +32,11 @@ public class RouteServiceImpl implements RouteService {
     @Override
     public List<Route> getRoutes() throws SQLException {
         return routeAccess.getRoutes();
+    }
+
+    @Override
+    public List<Route> getRoutes(String airline) throws AirlineNotFoundException, SQLException {
+        return routeAccess.getRoutesBy(airline);
     }
 
 }

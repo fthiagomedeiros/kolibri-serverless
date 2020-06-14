@@ -42,7 +42,17 @@ public class RdsStorage implements DataStorage {
     @Override
     public List<Route> getRoutes() throws SQLException {
         ResultSet resultSet = stmt.executeQuery("SELECT * FROM routes");
+        return getRoutes(resultSet);
+    }
 
+    @Override
+    public List<Route> getRoutes(String airline) throws SQLException {
+        ResultSet resultSet = stmt.executeQuery(String.format("SELECT * FROM routes WHERE airline = '%s'", airline));
+
+        return getRoutes(resultSet);
+    }
+
+    private List<Route> getRoutes(ResultSet resultSet) throws SQLException {
         List<Route> result = new ArrayList<>();
         while ( resultSet.next() ) {
             String uuid = resultSet.getString("uuid");
@@ -59,11 +69,6 @@ public class RdsStorage implements DataStorage {
         }
 
         return result;
-    }
-
-    @Override
-    public List<Route> getRoutes(String airline) throws AirlineNotFoundException {
-        return null;
     }
 
 }

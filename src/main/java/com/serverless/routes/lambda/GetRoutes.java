@@ -13,6 +13,8 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 import java.util.Map;
 
+import static utils.ExtractBody.extractAuthorizationUser;
+
 public class GetRoutes implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
     private static final Logger LOG = LogManager.getLogger(GetRoutes.class);
@@ -21,10 +23,10 @@ public class GetRoutes implements RequestHandler<Map<String, Object>, ApiGateway
 
     @SneakyThrows
     @Override
-    public ApiGatewayResponse handleRequest(Map<String, Object> stringObjectMap, Context context) {
-        LOG.info("received: {}", stringObjectMap);
+    public ApiGatewayResponse handleRequest(Map<String, Object> _event, Context context) {
+        String airline = extractAuthorizationUser(_event);
 
-        List<Route> response = routeService.getRoutes();
+        List<Route> response = routeService.getRoutes(airline);
 
         return ApiGatewayResponse.builder()
                 .setStatusCode(200)

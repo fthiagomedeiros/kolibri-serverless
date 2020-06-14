@@ -1,5 +1,6 @@
 package com.serverless.routes.data_layer;
 
+import com.serverless.routes.exceptions.AirlineNotFoundException;
 import com.serverless.routes.model.Route;
 import com.serverless.routes.services.DataStorage;
 import com.serverless.routes.services.RdsStorage;
@@ -19,6 +20,11 @@ public class RouteAccessImpl implements RouteAccess {
     @Override
     public List<Route> getRoutes() throws SQLException {
         return repository.getRoutes();
+    }
+
+    @Override
+    public List<Route> getRoutesBy(String airline) throws AirlineNotFoundException, SQLException {
+        return repository.getRoutes(airline);
     }
 
 }

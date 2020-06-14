@@ -7,6 +7,7 @@ public @Data
 @NoArgsConstructor
 class CreateRouteRequest {
     private String date;
+    private String time;
     private String flightId;
     private String origin;
     private String destination;

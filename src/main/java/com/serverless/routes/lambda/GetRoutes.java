@@ -2,24 +2,31 @@ package com.serverless.routes.lambda;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestHandler;
+import com.serverless.routes.business_logic.RouteService;
+import com.serverless.routes.business_logic.RouteServiceImpl;
+import com.serverless.routes.model.Route;
 import com.serverless.routes.response.ApiGatewayResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.List;
 import java.util.Map;
 
 public class GetRoutes implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
 
     private static final Logger LOG = LogManager.getLogger(GetRoutes.class);
 
+    private final RouteService routeService = new RouteServiceImpl();
+
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> stringObjectMap, Context context) {
         LOG.info("received: {}", stringObjectMap);
 
-//        Response responseBody = new Response("GET", "Works");
+        List<Route> response = routeService.getRoutes();
+
         return ApiGatewayResponse.builder()
                 .setStatusCode(200)
-                .setObjectBody(null)
+                .setObjectBody(response)
                 .build();
     }
 

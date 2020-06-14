@@ -8,6 +8,7 @@ public @Data
 class Route {
     private String uuid;
     private String date;
+    private String time;
     private String flightId;
     private String origin;
     private String destination;

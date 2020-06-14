@@ -1,5 +1,6 @@
 package com.serverless.routes.services;
 
+import com.serverless.routes.exceptions.AirlineNotFoundException;
 import com.serverless.routes.model.Route;
 
 import java.util.ArrayList;
@@ -30,6 +31,14 @@ public class MemoryStorage implements DataStorage {
     @Override
     public List<Route> getRoutes() {
         return routes;
+    }
+
+    @Override
+    public List<Route> getRoutes(String airline) throws AirlineNotFoundException {
+        if (routesFromAirline.containsKey(airline)) {
+            return routesFromAirline.get(airline);
+        }
+        throw new AirlineNotFoundException(airline);
     }
 
 

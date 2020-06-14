@@ -14,6 +14,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Map;
 
+import static utils.ExtractBody.extractAuthorizationUser;
 import static utils.ExtractBody.extractBody;
 
 public class PostRoute implements RequestHandler<Map<String, Object>, ApiGatewayResponse> {
@@ -26,7 +27,10 @@ public class PostRoute implements RequestHandler<Map<String, Object>, ApiGateway
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> _event, Context context) {
         String body = extractBody(_event);
+        String loggedUser = extractAuthorizationUser(_event);
+
         CreateRouteRequest request = mapper.readValue(body, CreateRouteRequest.class);
+        request.setAirline(loggedUser);
 
         LOG.info("Route handleRequest: {}", body);
 

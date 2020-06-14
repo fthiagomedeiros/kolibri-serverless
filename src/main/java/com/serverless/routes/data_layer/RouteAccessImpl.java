@@ -17,7 +17,7 @@ public class RouteAccessImpl implements RouteAccess {
     }
 
     @Override
-    public List<Route> getRoutes() {
+    public List<Route> getRoutes() throws SQLException {
         return repository.getRoutes();
     }
 

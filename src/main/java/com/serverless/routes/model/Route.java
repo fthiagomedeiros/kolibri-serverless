@@ -14,4 +14,15 @@ class Route {
     private String destination;
     private int cargo;
     private String airline;
+
+    public Route(String uuid, String date, String time, String flightId, String origin, String destination, int cargo, String airline) {
+        this.uuid = uuid;
+        this.date = date;
+        this.time = time;
+        this.flightId = flightId;
+        this.origin = origin;
+        this.destination = destination;
+        this.cargo = cargo;
+        this.airline = airline;
+    }
 }

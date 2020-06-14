@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface RouteAccess {
     Route createRoute(Route route) throws SQLException;
-    List<Route> getRoutes();
+    List<Route> getRoutes() throws SQLException;
 }

@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface RouteService {
     Route createRoute(CreateRouteRequest route) throws SQLException;
-    List<Route> getRoutes();
+    List<Route> getRoutes() throws SQLException;
 }

@@ -29,7 +29,7 @@ public class RouteServiceImpl implements RouteService {
     }
 
     @Override
-    public List<Route> getRoutes() {
+    public List<Route> getRoutes() throws SQLException {
         return routeAccess.getRoutes();
     }
 

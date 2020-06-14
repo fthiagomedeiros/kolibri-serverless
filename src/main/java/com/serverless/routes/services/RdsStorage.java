@@ -5,10 +5,7 @@ import com.serverless.routes.model.Route;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,8 +13,8 @@ public class RdsStorage implements DataStorage {
 
     private static final Logger LOG = LogManager.getLogger(RdsStorage.class);
 
-    private Connection conn;
-    private Statement stmt;
+    private static Connection conn;
+    private static Statement stmt;
 
     public RdsStorage() {
         try {
@@ -25,8 +22,8 @@ public class RdsStorage implements DataStorage {
             String username = System.getenv("USERNAME");
             String password = System.getenv("PASSWORD");
 
-            this.conn = DriverManager.getConnection(host, username, password);
-            this.stmt = conn.createStatement();
+            conn = DriverManager.getConnection(host, username, password);
+            stmt = conn.createStatement();
         } catch (SQLException throwables) {
             LOG.info("Route Created: {}", "throwables.printStackTrace()");
             throwables.printStackTrace();
@@ -35,17 +32,33 @@ public class RdsStorage implements DataStorage {
 
     @Override
     public Route save(Route route) throws SQLException {
-        String insertRoute = String.format("INSERT INTO routes VALUES ('%s', '%s', '%s', '%s', '%s', %d, '%s')",
-                route.getUuid(), route.getDate(), route.getTime(),
+        String insertRoute = String.format("INSERT INTO routes VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d, '%s')",
+                route.getUuid(), route.getDate(), route.getTime(), route.getFlightId(),
                 route.getOrigin(), route.getDestination(), route.getCargo(), route.getAirline());
         stmt.executeUpdate(insertRoute);
         return route;
     }
 
     @Override
-    public List<Route> getRoutes() {
-        LOG.info("Get Worked: {}", "getRoutes()");
-        return new ArrayList<>();
+    public List<Route> getRoutes() throws SQLException {
+        ResultSet resultSet = stmt.executeQuery("SELECT * FROM routes");
+
+        List<Route> result = new ArrayList<>();
+        while ( resultSet.next() ) {
+            String uuid = resultSet.getString("uuid");
+            String date = resultSet.getString("date");
+            String time = resultSet.getString("time");
+            String flightId = resultSet.getString("flightId");
+            String origin = resultSet.getString("origin");
+            String destination = resultSet.getString("destination");
+            String airline = resultSet.getString("airline");
+            int cargo = resultSet.getInt("cargo");
+
+            Route r = new Route(uuid, date, time, flightId, origin, destination, cargo, airline);
+            result.add(r);
+        }
+
+        return result;
     }
 
     @Override

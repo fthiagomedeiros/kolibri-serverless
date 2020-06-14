@@ -6,6 +6,7 @@ import com.serverless.routes.business_logic.RouteService;
 import com.serverless.routes.business_logic.RouteServiceImpl;
 import com.serverless.routes.model.Route;
 import com.serverless.routes.response.ApiGatewayResponse;
+import lombok.SneakyThrows;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -18,6 +19,7 @@ public class GetRoutes implements RequestHandler<Map<String, Object>, ApiGateway
 
     private final RouteService routeService = new RouteServiceImpl();
 
+    @SneakyThrows
     @Override
     public ApiGatewayResponse handleRequest(Map<String, Object> stringObjectMap, Context context) {
         LOG.info("received: {}", stringObjectMap);

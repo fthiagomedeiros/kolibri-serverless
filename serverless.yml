@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: kolibri-serverless
+service: kolibri
 # app and org for use with dashboard.serverless.com
 #app: your-app-name
 #org: your-org-name
@@ -23,6 +23,9 @@ service: kolibri-serverless
 provider:
   name: aws
   runtime: java8
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  stackName: kolibri
 
 # you can overwrite defaults here
 #  stage: dev
@@ -53,18 +56,28 @@ package:
   artifact: target/app-dev.jar
 
 functions:
+  PostRoute:
+    handler: com.serverless.routes.lambda.PostRoute
+    name: ${self:provider.stage}-PostRoutes
+    events:
+      - http:
+          path: routes
+          method: post
+
   GetRoutes:
-    handler: com.serverless.routes.GetRoutes
+    handler: com.serverless.routes.lambda.GetRoutes
+    name: ${self:provider.stage}-GetRoutes
     events:
       - http:
           path: routes
           method: get
 
-  PostRoute:
-    handler: com.serverless.routes.PostRoute
+  PostProduct:
+    handler: com.serverless.suppliers.lambda.PostProduct
+    name: ${self:provider.stage}-PostProduct
     events:
       - http:
-          path: routes
+          path: product
           method: post
 
 #    Define function environment variables here

@@ -1,4 +1,4 @@
-package com.serverless.routes.response;
+package utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

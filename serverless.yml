@@ -83,6 +83,24 @@ functions:
           method: post
           cors: true
 
+  GetAlerts:
+    handler: com.serverless.alerts.lambda.GetAlerts
+    name: ${self:provider.stage}-GetAlerts
+    events:
+      - http:
+          path: alerts
+          method: get
+          cors: true
+
+  PostAlerts:
+    handler: com.serverless.alerts.lambda.PostAlerts
+    name: ${self:provider.stage}-GetAlerts
+    events:
+      - http:
+          path: alerts
+          method: post
+          cors: true
+
 #    Define function environment variables here
 #    environment:
 #      variable2: value2

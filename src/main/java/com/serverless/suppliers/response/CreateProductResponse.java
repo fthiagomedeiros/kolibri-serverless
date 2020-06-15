@@ -1,13 +1,13 @@
-package com.serverless.suppliers.model;
+package com.serverless.suppliers.response;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 public @Data
 @NoArgsConstructor
-class Product {
+class CreateProductResponse {
     private String uuid;
     private String type;
-    private int quantity;
+    private String quantity;
     private String description;
 }

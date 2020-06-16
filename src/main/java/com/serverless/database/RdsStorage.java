@@ -9,6 +9,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.lang.String.format;
+
 public class RdsStorage implements DataStorage {
 
     private static final Logger LOG = LogManager.getLogger(RdsStorage.class);
@@ -32,23 +34,21 @@ public class RdsStorage implements DataStorage {
 
     @Override
     public Route save(Route route) throws SQLException {
-        String insertRoute = String.format("INSERT INTO routes VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d, '%s')",
-                route.getUuid(), route.getDate(), route.getTime(), route.getFlightId(),
-                route.getOrigin(), route.getDestination(), route.getCargo(), route.getAirline());
+        String insertRoute = format("INSERT INTO routes VALUES (%s)", route);
         stmt.executeUpdate(insertRoute);
         return route;
     }
 
     @Override
     public Product save(Product product) throws SQLException {
-        String insertRoute = String.format("INSERT INTO products VALUES (%s)", product.toString());
+        String insertRoute = format("INSERT INTO products VALUES (%s)", product);
         stmt.executeUpdate(insertRoute);
         return product;
     }
 
     @Override
     public List<Route> getRoutes(String airline) throws SQLException {
-        ResultSet resultSet = stmt.executeQuery(String.format("SELECT * FROM routes WHERE airline = '%s'", airline));
+        ResultSet resultSet = stmt.executeQuery(format("SELECT * FROM routes WHERE airline = '%s'", airline));
 
         return getRoutes(resultSet);
     }

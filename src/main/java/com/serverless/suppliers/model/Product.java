@@ -10,4 +10,5 @@ class Product {
     private String type;
     private int quantity;
     private String description;
+    private String supplier;
 }

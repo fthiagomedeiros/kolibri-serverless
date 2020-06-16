@@ -2,8 +2,8 @@ package com.serverless.routes.data_layer;
 
 import com.serverless.routes.exceptions.AirlineNotFoundException;
 import com.serverless.routes.model.Route;
-import com.serverless.routes.services.DataStorage;
-import com.serverless.routes.services.RdsStorage;
+import com.serverless.database.DataStorage;
+import com.serverless.database.RdsStorage;
 
 import java.sql.SQLException;
 import java.util.List;

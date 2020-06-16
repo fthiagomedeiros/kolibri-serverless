@@ -1,6 +1,7 @@
-package com.serverless.routes.services;
+package com.serverless.database;
 
 import com.serverless.routes.model.Route;
+import com.serverless.suppliers.model.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,6 +37,13 @@ public class RdsStorage implements DataStorage {
                 route.getOrigin(), route.getDestination(), route.getCargo(), route.getAirline());
         stmt.executeUpdate(insertRoute);
         return route;
+    }
+
+    @Override
+    public Product save(Product product) throws SQLException {
+        String insertRoute = String.format("INSERT INTO products VALUES ('%s', '%s', '%s', '%s')");
+        stmt.executeUpdate(insertRoute);
+        return product;
     }
 
     @Override

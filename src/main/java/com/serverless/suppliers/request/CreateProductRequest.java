@@ -9,4 +9,5 @@ class CreateProductRequest {
     private String type;
     private String quantity;
     private String description;
+    private String supplier;
 }

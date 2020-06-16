@@ -83,6 +83,15 @@ functions:
           method: post
           cors: true
 
+  GetProducts:
+    handler: com.serverless.suppliers.lambda.GetProduct
+    name: ${self:provider.stage}-GetProducts
+    events:
+      - http:
+          path: product
+          method: get
+          cors: true
+
 #    Define function environment variables here
 #    environment:
 #      variable2: value2

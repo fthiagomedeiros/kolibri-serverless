@@ -13,6 +13,16 @@ class Product {
     private double price;
     private String supplier;
 
+    public Product(String uuid, String type, int quantity,
+                   double price, String description, String supplier) {
+        this.uuid = uuid;
+        this.type = type;
+        this.quantity = quantity;
+        this.price = price;
+        this.description = description;
+        this.supplier = supplier;
+    }
+
     public String toString() {
         return String.format("'%s', '%s', %s, %.2f, '%s', '%s'",
                 getUuid(), getType(), getQuantity(),

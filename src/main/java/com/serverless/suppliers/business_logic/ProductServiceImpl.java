@@ -10,6 +10,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.UUID;
 
 public class ProductServiceImpl implements ProductService {
@@ -24,5 +25,11 @@ public class ProductServiceImpl implements ProductService {
         aNewProduct.setUuid(UUID.randomUUID().toString());
 
         return productAccess.createProduct(aNewProduct);
+    }
+
+    @Override
+    public List<Product> getProducts(String supplier) throws SQLException {
+
+        return productAccess.getProducts(supplier);
     }
 }

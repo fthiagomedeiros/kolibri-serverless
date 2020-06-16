@@ -56,4 +56,9 @@ public class MemoryStorage implements DataStorage {
         throw new AirlineNotFoundException(airline);
     }
 
+    @Override
+    public List<Product> getProducts(String supplier) {
+        return null;
+    }
+
 }

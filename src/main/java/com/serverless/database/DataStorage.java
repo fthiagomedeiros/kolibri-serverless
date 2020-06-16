@@ -11,5 +11,5 @@ public interface DataStorage {
     Route save(Route route) throws SQLException;
     Product save(Product product) throws SQLException;
     List<Route> getRoutes(String airline) throws AirlineNotFoundException, SQLException;
-
+    List<Product> getProducts(String supplier) throws SQLException;
 }

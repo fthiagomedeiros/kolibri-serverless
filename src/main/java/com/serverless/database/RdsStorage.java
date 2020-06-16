@@ -36,6 +36,7 @@ public class RdsStorage implements DataStorage {
     public Route save(Route route) throws SQLException {
         String insertRoute = format("INSERT INTO routes VALUES (%s)", route);
         stmt.executeUpdate(insertRoute);
+
         return route;
     }
 
@@ -43,6 +44,7 @@ public class RdsStorage implements DataStorage {
     public Product save(Product product) throws SQLException {
         String insertRoute = format("INSERT INTO products VALUES (%s)", product);
         stmt.executeUpdate(insertRoute);
+
         return product;
     }
 
@@ -51,6 +53,30 @@ public class RdsStorage implements DataStorage {
         ResultSet resultSet = stmt.executeQuery(format("SELECT * FROM routes WHERE airline = '%s'", airline));
 
         return getRoutes(resultSet);
+    }
+
+    @Override
+    public List<Product> getProducts(String supplier) throws SQLException {
+        ResultSet resultSet = stmt.executeQuery(format("SELECT * FROM products WHERE supplier = '%s'", supplier));
+
+        return getProducts(resultSet);
+    }
+
+    private List<Product> getProducts(ResultSet resultSet) throws SQLException {
+        List<Product> result = new ArrayList<>();
+        while (resultSet.next()) {
+            String uuid = resultSet.getString("uuid");
+            String type = resultSet.getString("type");
+            int quantity = resultSet.getInt("quantity");
+            double price = resultSet.getDouble("price");
+            String description = resultSet.getString("description");
+            String supplier = resultSet.getString("supplier");
+
+            Product aProduct = new Product(uuid, type, quantity, price, description, supplier);
+            result.add(aProduct);
+        }
+
+        return result;
     }
 
     private List<Route> getRoutes(ResultSet resultSet) throws SQLException {

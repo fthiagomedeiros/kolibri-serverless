@@ -10,5 +10,12 @@ class Product {
     private String type;
     private int quantity;
     private String description;
+    private double price;
     private String supplier;
+
+    public String toString() {
+        return String.format("'%s', '%s', %s, %.2f, '%s', '%s'",
+                getUuid(), getType(), getQuantity(),
+                getPrice(), getDescription(), getSupplier());
+    }
 }

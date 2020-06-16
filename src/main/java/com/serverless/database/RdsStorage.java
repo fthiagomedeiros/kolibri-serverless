@@ -41,7 +41,7 @@ public class RdsStorage implements DataStorage {
 
     @Override
     public Product save(Product product) throws SQLException {
-        String insertRoute = String.format("INSERT INTO products VALUES ('%s', '%s', '%s', '%s')");
+        String insertRoute = String.format("INSERT INTO products VALUES (%s)", product.toString());
         stmt.executeUpdate(insertRoute);
         return product;
     }

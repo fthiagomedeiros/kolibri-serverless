@@ -2,7 +2,6 @@ package com.serverless.suppliers.business_logic;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.serverless.routes.business_logic.RouteServiceImpl;
-import com.serverless.routes.model.Route;
 import com.serverless.suppliers.data_layer.ProductAccess;
 import com.serverless.suppliers.data_layer.ProductAccessImpl;
 import com.serverless.suppliers.model.Product;

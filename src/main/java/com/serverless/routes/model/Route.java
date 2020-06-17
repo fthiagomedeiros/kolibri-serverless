@@ -25,4 +25,10 @@ class Route {
         this.cargo = cargo;
         this.airline = airline;
     }
+
+    public String toString() {
+        return String.format("'%s', '%s', '%s', '%s', '%s', '%s', %s, '%s'", getUuid(), getDate(), getTime(),
+                getFlightId(), getOrigin(), getDestination(), getCargo(), getAirline());
+    }
+
 }

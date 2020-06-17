@@ -1,12 +1,15 @@
-package com.serverless.routes.services;
+package com.serverless.database;
 
 import com.serverless.routes.model.Route;
+import com.serverless.suppliers.model.Product;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.lang.String.format;
 
 public class RdsStorage implements DataStorage {
 
@@ -31,18 +34,49 @@ public class RdsStorage implements DataStorage {
 
     @Override
     public Route save(Route route) throws SQLException {
-        String insertRoute = String.format("INSERT INTO routes VALUES ('%s', '%s', '%s', '%s', '%s', '%s', %d, '%s')",
-                route.getUuid(), route.getDate(), route.getTime(), route.getFlightId(),
-                route.getOrigin(), route.getDestination(), route.getCargo(), route.getAirline());
+        String insertRoute = format("INSERT INTO routes VALUES (%s)", route);
         stmt.executeUpdate(insertRoute);
+
         return route;
     }
 
     @Override
+    public Product save(Product product) throws SQLException {
+        String insertRoute = format("INSERT INTO products VALUES (%s)", product);
+        stmt.executeUpdate(insertRoute);
+
+        return product;
+    }
+
+    @Override
     public List<Route> getRoutes(String airline) throws SQLException {
-        ResultSet resultSet = stmt.executeQuery(String.format("SELECT * FROM routes WHERE airline = '%s'", airline));
+        ResultSet resultSet = stmt.executeQuery(format("SELECT * FROM routes WHERE airline = '%s'", airline));
 
         return getRoutes(resultSet);
+    }
+
+    @Override
+    public List<Product> getProducts(String supplier) throws SQLException {
+        ResultSet resultSet = stmt.executeQuery(format("SELECT * FROM products WHERE supplier = '%s'", supplier));
+
+        return getProducts(resultSet);
+    }
+
+    private List<Product> getProducts(ResultSet resultSet) throws SQLException {
+        List<Product> result = new ArrayList<>();
+        while (resultSet.next()) {
+            String uuid = resultSet.getString("uuid");
+            String type = resultSet.getString("type");
+            int quantity = resultSet.getInt("quantity");
+            double price = resultSet.getDouble("price");
+            String description = resultSet.getString("description");
+            String supplier = resultSet.getString("supplier");
+
+            Product aProduct = new Product(uuid, type, quantity, price, description, supplier);
+            result.add(aProduct);
+        }
+
+        return result;
     }
 
     private List<Route> getRoutes(ResultSet resultSet) throws SQLException {

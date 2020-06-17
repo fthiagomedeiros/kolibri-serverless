@@ -7,6 +7,8 @@ public @Data
 @NoArgsConstructor
 class CreateProductRequest {
     private String type;
-    private String quantity;
+    private int quantity;
     private String description;
+    private double price;
+    private String supplier;
 }

@@ -56,6 +56,11 @@ package:
   artifact: target/app-dev.jar
 
 functions:
+
+  Auth:
+    handler: com.serverless.auth.APIGatewayAuthorizerHandler
+    name: ${self:provider.stage}-CustomAuthorizer
+
   PostRoute:
     handler: com.serverless.routes.lambda.PostRoute
     name: ${self:provider.stage}-PostRoutes
@@ -64,6 +69,7 @@ functions:
           path: routes
           method: post
           cors: true
+          authorizer: Auth
 
   GetRoutes:
     handler: com.serverless.routes.lambda.GetRoutes
@@ -73,6 +79,7 @@ functions:
           path: routes
           method: get
           cors: true
+          authorizer: Auth
 
   PostProduct:
     handler: com.serverless.suppliers.lambda.PostProduct
@@ -82,6 +89,7 @@ functions:
           path: product
           method: post
           cors: true
+          authorizer: Auth
 
   GetProducts:
     handler: com.serverless.suppliers.lambda.GetProduct
@@ -91,6 +99,7 @@ functions:
           path: product
           method: get
           cors: true
+          authorizer: Auth
 
 #    Define function environment variables here
 #    environment:

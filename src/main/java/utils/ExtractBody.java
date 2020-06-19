@@ -23,4 +23,7 @@ public class ExtractBody {
         return ((LinkedHashMap) _event.get("headers")).get("Authorization").toString();
     }
 
+    public static String getToken(Map<String, Object> _event) {
+        return _event.get("authorizationToken").toString();
+    }
 }

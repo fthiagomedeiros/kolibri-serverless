@@ -101,6 +101,15 @@ functions:
           cors: true
           authorizer: Auth
 
+  GetPerson:
+    handler: com.serverless.person.lambda.GetPerson
+    name: ${self:provider.stage}-GetPerson
+    events:
+      - http:
+          path: person
+          method: get
+          cors: true
+
 #    Define function environment variables here
 #    environment:
 #      variable2: value2
